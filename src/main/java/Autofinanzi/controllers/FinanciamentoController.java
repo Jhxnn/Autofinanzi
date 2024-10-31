@@ -1,3 +1,4 @@
+
 package Autofinanzi.controllers;
 
 import java.util.UUID;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import Autofinanzi.dtos.FinanciamentoDto;
+import Autofinanzi.models.Financiamento;
 import Autofinanzi.services.FinanciamentoService;
 
 @RestController
@@ -30,4 +33,13 @@ public class FinanciamentoController {
 		return ResponseEntity.status(HttpStatus.OK).body(parcela);
 	}
 	
+	@PostMapping("/{id}/{qntdparcela}")
+	public ResponseEntity<Financiamento> pagarParcela(@PathVariable(name = "qntdparcela") int qntdParcelas, 
+													 @PathVariable(name = "id")UUID id){
+		return ResponseEntity.status(HttpStatus.OK).body(finService.pagarParcela(id, qntdParcelas));
+	}
+	
+	
+							
+			
 }

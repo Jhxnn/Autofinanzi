@@ -1,5 +1,6 @@
 package Autofinanzi.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -35,5 +36,23 @@ public class ClienteService {
 		clienteRepository.delete(cliente);
 		
 		
+	}
+	public List<Cliente> findAll(){
+		return clienteRepository.findAll();
+	}
+	public Cliente updateCliente(UUID id, ClienteDto clienteDto) {
+		
+		var cliente = clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Veiculo não encontrado"));
+		if(clienteDto.cpf() != null) {
+			cliente.setCpf(clienteDto.cpf());
+		}
+		if(clienteDto.email() != null) {
+			cliente.setEmail(clienteDto.email());
+		}
+		if(clienteDto.name() != null) {
+			cliente.setName(clienteDto.name());
+		}
+		
+		return clienteRepository.save(cliente);
 	}
 }

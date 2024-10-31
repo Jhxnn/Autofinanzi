@@ -1,5 +1,7 @@
 package Autofinanzi.dtos;
 
-public record VeiculoDto(String marca, String modelo, int valor, boolean disponivel) {
+import Autofinanzi.models.enums.StatusVeiculo;
+
+public record VeiculoDto(String marca, String modelo, int valor, StatusVeiculo statusVeiculo) {
 
 }

@@ -2,8 +2,11 @@ package Autofinanzi.models;
 
 import java.util.UUID;
 
+import Autofinanzi.models.enums.StatusVeiculo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +24,9 @@ public class Veiculo {
 	private String marca;
 	private String modelo;
 	private int valor;
-	private boolean disponivel;
+    @Enumerated(EnumType.STRING)
+	private StatusVeiculo statusVeiculo;
+	
 	public String getMarca() {
 		return marca;
 	}
@@ -40,11 +45,11 @@ public class Veiculo {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
-	public boolean isDisponivel() {
-		return disponivel;
+	public StatusVeiculo getStatusVeiculo() {
+		return statusVeiculo;
 	}
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
+	public void setStatusVeiculo(StatusVeiculo statusVeiculo) {
+		this.statusVeiculo = statusVeiculo;
 	}
 	
 	

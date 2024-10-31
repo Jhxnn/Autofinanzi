@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import Autofinanzi.dtos.VeiculoDto;
 import Autofinanzi.models.Veiculo;
+import Autofinanzi.models.enums.StatusVeiculo;
 import Autofinanzi.repositories.VeiculoRepository;
 
 @Service
@@ -20,11 +21,13 @@ public class VeiculoService {
 	
 	public Veiculo findById(UUID id) {
 		
-		return veiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
+		return veiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Veiculo não encontrado"));
 		
 	}
 	
-	
+	public List<Veiculo> findByStatus(StatusVeiculo status){
+		return veiculoRepository.findByStatusVeiculo(status);
+	}
 	public List<Veiculo> findAll(){
 		return veiculoRepository.findAll();
 	}
@@ -38,7 +41,37 @@ public class VeiculoService {
 	}
 	public void deleteVeiculo(UUID id) {
 		
-		var veiculo = veiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Cliente não encontrado"));
+		var veiculo = veiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Veiculo não encontrado"));
 		veiculoRepository.delete(veiculo);
 	}
+	public List<Veiculo> veiculoByValor(){
+		return veiculoRepository.findAllVeiculosMenorValor();
+	}
+	public List<Veiculo> veiculoByValorMaior(){
+		return veiculoRepository.findAllVeiculosMaiorValor();
+	}
+	
+	public Veiculo atualizarVeiculo(UUID id, VeiculoDto veiculoDto) {
+		
+		var veiculo = veiculoRepository.findById(id).orElseThrow(()-> new RuntimeException("Veiculo não encontrado"));
+		if(veiculoDto.marca() != null) {
+			veiculo.setMarca(veiculoDto.marca());
+		}
+		if(veiculoDto.statusVeiculo() != null) {
+			veiculo.setStatusVeiculo(veiculoDto.statusVeiculo());
+		}
+		if(veiculoDto.modelo() != null) {
+			veiculo.setModelo(veiculoDto.modelo());
+		}
+		if(veiculoDto.valor() >= 0) {
+			veiculo.setValor(veiculoDto.valor());
+		}
+		
+		return veiculoRepository.save(veiculo);
+
+	}
+	public List<Veiculo> rangeValor(double min, double max){
+		return veiculoRepository.findByPriceRange(min, max);
+	}
+
 }

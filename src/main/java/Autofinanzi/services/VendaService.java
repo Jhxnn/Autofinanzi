@@ -29,4 +29,6 @@ public class VendaService {
 	public List<Venda> allVendas(){
 		return vendaRepository.findAll();
 	}
+	
+	
 }
