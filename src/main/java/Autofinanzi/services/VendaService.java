@@ -20,6 +20,15 @@ public class VendaService {
 	@Autowired
 	VendaRepository vendaRepository;
 	
+	@Autowired
+	ClienteService clienteService;
+	
+	@Autowired
+	VeiculoService veiculoService;
+	
+	@Autowired
+	FinanciamentoService finService;
+	
 	
 	
 	public Venda createVenda(VendaDto vendaDto) {
@@ -53,14 +62,14 @@ public class VendaService {
 			venda.setStatusVenda(vendaDto.statusVenda());
 		}
 		if(vendaDto.idCliente() != null) {
-			venda.setIdCliente(vendaDto.idCliente());
+			venda.setCliente(clienteService.findById(vendaDto.idCliente()));
 		}
 		if(vendaDto.idVeiculo() != null) {
-			venda.setIdVeiculo(vendaDto.idVeiculo());
+			venda.setVeiculo(veiculoService.findById(vendaDto.idVeiculo()));
 			
 		}
 		if(vendaDto.idFinanciamento() != null) {
-			venda.setIdFinanciamento(vendaDto.idFinanciamento());
+			venda.setFinanciamento(finService.findByID(vendaDto.idFinanciamento()));
 		}
 		if(vendaDto.data() != null) {
 			venda.setData(vendaDto.data());

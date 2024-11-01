@@ -1,6 +1,5 @@
 package Autofinanzi.models;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,12 +22,19 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID venda;
-	@Column(name = "id_cliente")
-	private UUID idCliente;
-	@Column(name = "id_veiculo")
-	private UUID idVeiculo;
-	@Column(name = "id_financiamento")
-	private UUID idFinanciamento;
+	
+	 @ManyToOne
+	 @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+	 private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "veiculo_id", referencedColumnName = "id")	
+	private Veiculo veiculo;
+	
+	@ManyToOne
+    @JoinColumn(name = "id_financiamento", referencedColumnName = "id")
+    private Financiamento financiamento;
+	
     @Enumerated(EnumType.STRING)
 	private StatusVenda statusVenda;
     private LocalDate data;
@@ -37,23 +45,24 @@ public class Venda {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
-	public UUID getIdCliente() {
-		return idCliente;
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setIdCliente(UUID idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	public UUID getIdVeiculo() {
-		return idVeiculo;
+	public Veiculo getVeiculo() {
+		return veiculo;
 	}
-	public void setIdVeiculo(UUID idVeiculo) {
-		this.idVeiculo = idVeiculo;
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
-	public UUID getIdFinanciamento() {
-		return idFinanciamento;
+	public Financiamento getFinanciamento() {
+		return financiamento;
 	}
-	public void setIdFinanciamento(UUID idFinanciamento) {
-		this.idFinanciamento = idFinanciamento;
+	public void setFinanciamento(Financiamento financiamento) {
+		this.financiamento = financiamento;
 	}
 	public StatusVenda getStatusVenda() {
 		return statusVenda;

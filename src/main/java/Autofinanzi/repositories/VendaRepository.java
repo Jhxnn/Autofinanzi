@@ -12,14 +12,17 @@ import Autofinanzi.models.Venda;
 
 public interface VendaRepository extends JpaRepository<Venda, UUID>{
 	
-    @Query("SELECT v FROM Venda v JOIN v.veiculo veiculo ORDER BY veiculo.valor DESC")
+	@Query("SELECT v FROM Venda v JOIN v.veiculo veiculo ORDER BY veiculo.valor DESC")
 		List<Venda> findMaioresVendas ();
     
 
     @Query("SELECT v FROM Venda v JOIN v.veiculo veiculo ORDER BY veiculo.valor ASC")
 		List<Venda> findMenoresVendas();
     
-    @Query("SELECT v FROM Venda v WHERE v.dataVenda BETWEEN :startDate AND :endDate")
+    @Query("SELECT v FROM Venda v WHERE v.data BETWEEN :startDate AND :endDate")
     List<Venda> findByDateRange(@Param("startDate") LocalDate startDate, 
                                  @Param("endDate") LocalDate endDate);
+    
+    
+    
 }

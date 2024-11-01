@@ -1,5 +1,6 @@
 package Autofinanzi.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -8,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import Autofinanzi.dtos.FinanciamentoDto;
 import Autofinanzi.models.Financiamento;
-import Autofinanzi.repositories.ClienteRepository;
 import Autofinanzi.repositories.FinanciamentoRepository;
-import Autofinanzi.repositories.VeiculoRepository;
 
 @Service
 public class FinanciamentoService {
@@ -40,18 +39,23 @@ public class FinanciamentoService {
 	
 	}
 	
+	public List<Financiamento> findAll(){
+		return financiamentoRepository.findAll();
+	}
+	
 	public double calculoFin(UUID veiculoId, double taxa, int qntdParcelas, boolean simulacao) {
 		var veiculo = veiculoService.findById(veiculoId);
 		double pv = veiculo.getValor();
-		double pmt = (pv * taxa) / 1 - Math.pow(1 + taxa, -qntdParcelas);
-		
-		if(simulacao == false) {
-			Financiamento financiamento = new Financiamento(pv, qntdParcelas, taxa, pmt);
-			financiamentoRepository.save(financiamento);
-			return pmt;
-
-		}
+		double pmt = (pv * taxa) / (1 - Math.pow(1 + taxa, -qntdParcelas));
 		return pmt;
+		
+	}
+	public Financiamento criarFin(UUID veiculoId, double taxa, int qntdParcelas, boolean simulacao) {
+		var veiculo = veiculoService.findById(veiculoId);
+		double pv = veiculo.getValor();
+		double pmt = (pv * taxa) / (1 - Math.pow(1 + taxa, -qntdParcelas));
+		Financiamento financiamento = new Financiamento(pv, qntdParcelas, taxa, pmt);
+		return financiamentoRepository.save(financiamento);
 		
 	}
 	public Financiamento pagarParcela(UUID idFin, int qntParcelasPagas) {

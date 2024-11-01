@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import Autofinanzi.dtos.ClienteDto;
 import Autofinanzi.models.Cliente;
 import Autofinanzi.services.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/cliente")
@@ -28,6 +29,7 @@ public class ClienteController {
 	
 	
 	@GetMapping("/{id}")
+	@Operation(description = "Busca o cliente pelo ID")
 	public ResponseEntity<Cliente> findById(@PathVariable(name = "id") UUID id){
 		
 		
@@ -37,21 +39,25 @@ public class ClienteController {
 	}
 	
 	@PostMapping
+	@Operation(description = "Cria um cliente")
 	public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDto clienteDto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.createCliente(clienteDto));
 	
 	}
 	
 	@DeleteMapping("{id}")
+	@Operation(description = "Deleta o cliente pelo ID passado")
 	public ResponseEntity<Cliente> deleteCliente(@PathVariable(name = "id")UUID id){
 		clienteService.deleteCliente(id);
 		return ResponseEntity.noContent().build();
 	}
 	@GetMapping
+	@Operation(description = "Mostra todos os clientes cadastrados")
 	public ResponseEntity<List<Cliente>> findAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findAll());
 	}
 	@PutMapping("/{id}")
+	@Operation(description = "Atualiza total ou parcialmente os dados do cliente passado pelo ID")
 	public ResponseEntity<Cliente> updateCliente(@PathVariable(name = "id") UUID id,
 			@RequestBody ClienteDto clienteDto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.updateCliente(id, clienteDto));
