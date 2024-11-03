@@ -35,11 +35,22 @@ public class FinanciamentoController {
 	
 	@GetMapping("/simulacao/{idVeiculo}")
 	@Operation(description = "Faz uma simualação de qual valor da parcela com base na taxa e na quantidade de parcelas")
-	public ResponseEntity<Double> valorParcelaSimulacao(@RequestBody FinanciamentoDto finDto,
+	public ResponseEntity<Financiamento> valorParcelaSimulacao(@RequestBody FinanciamentoDto finDto,
 								@PathVariable(name = "idVeiculo")UUID id) {
-		double parcela = finService.calculoFin(id, finDto.taxaJuros(), finDto.numeroParcelas(), finDto.simulacao());
+		
+		Financiamento parcela = finService.calculoFin(id, finDto.taxaJuros(), finDto.numeroParcelas());
 		return ResponseEntity.status(HttpStatus.OK).body(parcela);
 	}
+	
+	@PostMapping("/{idVeiculo}")
+	@Operation(description = "Calcula o valor da parcela e salva todos os dados no financiamento")
+	public ResponseEntity<Financiamento> valorParcela(@RequestBody FinanciamentoDto finDto,
+								@PathVariable(name = "idVeiculo")UUID id) {
+		Financiamento fin = finService.criarFin(id, finDto.taxaJuros(), finDto.numeroParcelas());
+		return ResponseEntity.status(HttpStatus.OK).body(fin);
+	}
+	
+	
 	@GetMapping("/{id}")
 	@Operation(description = "Busca o financiamento pelo ID passado na URL")
 	public ResponseEntity<Financiamento> findById(@PathVariable(name = "id")UUID id){
@@ -50,13 +61,7 @@ public class FinanciamentoController {
 	public ResponseEntity<List<Financiamento>> findAll(){
 		return ResponseEntity.status(HttpStatus.OK).body(finService.findAll());
 	}
-	@PostMapping("/{idVeiculo}")
-	@Operation(description = "Calcula o valor da parcela e salva todos os dados no financiamento")
-	public ResponseEntity<Financiamento> valorParcela(@RequestBody FinanciamentoDto finDto,
-								@PathVariable(name = "idVeiculo")UUID id) {
-		Financiamento fin = finService.criarFin(id, finDto.taxaJuros(), finDto.numeroParcelas(), finDto.simulacao());
-		return ResponseEntity.status(HttpStatus.OK).body(fin);
-	}
+	
 	
 	@PostMapping("/{id}/{qntdparcela}")
 	@Operation(description = "Com o Id do financiamento e quantidade de parcela pagas, é salvo na tabela o novo valor total e quantas parcela ainda faltam")

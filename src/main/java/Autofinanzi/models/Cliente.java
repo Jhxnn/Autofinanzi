@@ -19,6 +19,15 @@ public class Cliente {
 	private String name;
 	private String cpf;
 	private String email;
+	
+	
+	
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

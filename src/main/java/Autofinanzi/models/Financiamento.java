@@ -31,6 +31,15 @@ public class Financiamento {
 	public Financiamento() {
 		
 	}
+	
+
+	public UUID getFinId() {
+		return finId;
+	}
+
+	public void setFinId(UUID finId) {
+		this.finId = finId;
+	}
 
 	public double getValorTotal() {
 		return valorTotal;

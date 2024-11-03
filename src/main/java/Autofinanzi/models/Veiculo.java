@@ -23,10 +23,21 @@ public class Veiculo {
 	private UUID carId;
 	private String marca;
 	private String modelo;
-	private int valor;
+	private double valor;
     @Enumerated(EnumType.STRING)
 	private StatusVeiculo statusVeiculo;
+    
+    
+    
+    
+    
 	
+	public UUID getCarId() {
+		return carId;
+	}
+	public void setCarId(UUID carId) {
+		this.carId = carId;
+	}
 	public String getMarca() {
 		return marca;
 	}
@@ -39,10 +50,10 @@ public class Veiculo {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	public int getValor() {
+	public double getValor() {
 		return valor;
 	}
-	public void setValor(int valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 	public StatusVeiculo getStatusVeiculo() {
