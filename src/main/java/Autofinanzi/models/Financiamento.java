@@ -20,12 +20,14 @@ public class Financiamento {
 	private int numeroParcelas;
 	private double taxaJuros;
 	private double valorParcela;
+	private double entrada;
 	
-	public Financiamento( double valorTotal, int numeroParcelas, double taxaJuros, double valorParcela) {
+	public Financiamento( double valorTotal, int numeroParcelas, double taxaJuros, double valorParcela, double entrada) {
 		this.valorTotal = valorTotal;
 		this.numeroParcelas = numeroParcelas;
 		this.taxaJuros = taxaJuros;	
 		this.valorParcela = valorParcela;
+		this.entrada = entrada;
 	}
 	
 	public Financiamento() {
@@ -71,6 +73,14 @@ public class Financiamento {
 
 	public void setValorParcela(double valorParcela) {
 		this.valorParcela = valorParcela;
+	}
+
+	public double getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(double entrada) {
+		this.entrada = entrada;
 	}
 	
 	

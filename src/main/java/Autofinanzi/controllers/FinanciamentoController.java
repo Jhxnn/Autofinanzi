@@ -38,7 +38,7 @@ public class FinanciamentoController {
 	public ResponseEntity<Financiamento> valorParcelaSimulacao(@RequestBody FinanciamentoDto finDto,
 								@PathVariable(name = "idVeiculo")UUID id) {
 		
-		Financiamento parcela = finService.calculoFin(id, finDto.taxaJuros(), finDto.numeroParcelas());
+		Financiamento parcela = finService.calculoFin(id, finDto.taxaJuros(), finDto.numeroParcelas(), finDto.entrada());
 		return ResponseEntity.status(HttpStatus.OK).body(parcela);
 	}
 	
@@ -46,7 +46,7 @@ public class FinanciamentoController {
 	@Operation(description = "Calcula o valor da parcela e salva todos os dados no financiamento")
 	public ResponseEntity<Financiamento> valorParcela(@RequestBody FinanciamentoDto finDto,
 								@PathVariable(name = "idVeiculo")UUID id) {
-		Financiamento fin = finService.criarFin(id, finDto.taxaJuros(), finDto.numeroParcelas());
+		Financiamento fin = finService.criarFin(id, finDto.taxaJuros(), finDto.numeroParcelas(), finDto.entrada());
 		return ResponseEntity.status(HttpStatus.OK).body(fin);
 	}
 	

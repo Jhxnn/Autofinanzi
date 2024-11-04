@@ -43,21 +43,21 @@ public class FinanciamentoService {
 		return financiamentoRepository.findAll();
 	}
 	
-	public Financiamento calculoFin(UUID veiculoId, double taxa, int qntdParcelas) {
+	public Financiamento calculoFin(UUID veiculoId, double taxa, int qntdParcelas, double entrada) {
 		var veiculo = veiculoService.findById(veiculoId);
-		double pv = veiculo.getValor();
+		double pv = veiculo.getValor() - entrada;
 		taxa = (taxa / 100) / 12;	
 		double pmt = (pv * taxa) / (1 - Math.pow(1 + taxa, -qntdParcelas));
-		Financiamento financiamento = new Financiamento(pv, qntdParcelas, taxa, pmt);
+		Financiamento financiamento = new Financiamento(veiculo.getValor(), qntdParcelas, taxa, pmt, entrada);
 		return financiamento;
 		
 	}
-	public Financiamento criarFin(UUID veiculoId, double taxa, int qntdParcelas) {
+	public Financiamento criarFin(UUID veiculoId, double taxa, int qntdParcelas, double entrada) {
 		var veiculo = veiculoService.findById(veiculoId);
-		double pv = veiculo.getValor();
+		double pv = veiculo.getValor() - entrada;
 		taxa = (taxa / 100) / 12;	
 		double pmt = (pv * taxa) / (1 - Math.pow(1 + taxa, -qntdParcelas));
-		Financiamento financiamento = new Financiamento(pv, qntdParcelas, taxa, pmt);
+		Financiamento financiamento = new Financiamento(veiculo.getValor(), qntdParcelas, taxa, pmt, entrada);
 		return financiamentoRepository.save(financiamento);
 		
 	}

@@ -4,7 +4,8 @@ import java.util.UUID;
 
 public record FinanciamentoDto(
 		int numeroParcelas,
-		double taxaJuros
+		double taxaJuros,
+		double entrada
 		) {
 
 }
