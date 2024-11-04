@@ -1,8 +1,6 @@
 package Autofinanzi.models;
-
 import java.time.LocalDate;
 import java.util.UUID;
-
 import Autofinanzi.models.enums.StatusVenda;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,31 +12,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "vendas")
 public class Venda {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID venda;
+	@Column(name = "id")
+	private UUID idVenda;
 	
 	 @ManyToOne
 	 @JoinColumn(name = "id_cliente", referencedColumnName = "id")
 	 private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "veiculo_id", referencedColumnName = "id")	
+	@JoinColumn(name = "id_veiculo", referencedColumnName = "id")	
 	private Veiculo veiculo;
 	
 	@ManyToOne
-    @JoinColumn(name = "id_financiamento", referencedColumnName = "id")
-    private Financiamento financiamento;
+   @JoinColumn(name = "id_financiamento", referencedColumnName = "id")
+   private Financiamento financiamento;
 	
-    @Enumerated(EnumType.STRING)
+   @Enumerated(EnumType.STRING)
 	private StatusVenda statusVenda;
-    private LocalDate data;
-    
+   private LocalDate data;
+  
+  
+  
+  
+  
+	public UUID getVenda() {
+		return idVenda;
+	}
 	public LocalDate getData() {
 		return data;
 	}
@@ -71,5 +76,4 @@ public class Venda {
 		this.statusVenda = statusVenda;
 	}
 	
-
 }

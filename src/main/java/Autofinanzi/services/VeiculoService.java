@@ -11,7 +11,7 @@ import Autofinanzi.dtos.VeiculoDto;
 import Autofinanzi.models.Veiculo;
 import Autofinanzi.models.enums.StatusVeiculo;
 import Autofinanzi.repositories.VeiculoRepository;
-
+import Autofinanzi.models.enums.StatusVeiculo;
 @Service
 public class VeiculoService {
 

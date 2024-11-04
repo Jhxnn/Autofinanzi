@@ -24,7 +24,7 @@ public class Financiamento {
 	public Financiamento( double valorTotal, int numeroParcelas, double taxaJuros, double valorParcela) {
 		this.valorTotal = valorTotal;
 		this.numeroParcelas = numeroParcelas;
-		this.taxaJuros = taxaJuros;
+		this.taxaJuros = taxaJuros;	
 		this.valorParcela = valorParcela;
 	}
 	
