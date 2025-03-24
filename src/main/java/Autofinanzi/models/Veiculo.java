@@ -17,13 +17,15 @@ import jakarta.persistence.Table;
 public class Veiculo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
-	
 	@Column(name = "id")
 	private UUID carId;
+
 	private String marca;
+
 	private String modelo;
+
 	private double valor;
+
     @Enumerated(EnumType.STRING)
 	private StatusVeiculo statusVeiculo;
     
