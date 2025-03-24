@@ -18,5 +18,19 @@ public class Estoque {
     @JoinColumn(referencedColumnName = "id", name = "veiculo_id")
     private Veiculo veiculo;
 
+    public UUID getEstoqueId() {
+        return estoqueId;
+    }
 
+    public void setEstoqueId(UUID estoqueId) {
+        this.estoqueId = estoqueId;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
 }
