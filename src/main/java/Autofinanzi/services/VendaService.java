@@ -24,6 +24,9 @@ public class VendaService {
 	
 	@Autowired
 	FinanciamentoService finService;
+
+	@Autowired
+	EmailService emailService;
 	
 	
 	
@@ -37,14 +40,15 @@ public class VendaService {
 		if(veiculo.getStatusVeiculo() == StatusVeiculo.RESERVADO) {
 			throw new IllegalStateException("Veiculo já esta reservado");
 		}
-		
+		var cliente = clienteService.findById(vendaDto.idCliente());
 		veiculo.setStatusVeiculo(StatusVeiculo.VENDIDO);
-		venda.setCliente(clienteService.findById(vendaDto.idCliente()));
+		venda.setCliente(cliente);
 		venda.setVeiculo(veiculo);
 		venda.setFinanciamento(finService.findByID(vendaDto.idFinanciamento()));
 		venda.setData(vendaDto.data());
 		venda.setStatusVenda(vendaDto.statusVenda());
-		
+		emailService.enviarEmailTexto(cliente.getEmail(), "Veiculo vendido",
+				"Parabéns por adquirir o seu mais novo " + veiculo.getModelo());
 		return vendaRepository.save(venda);
 		
 	}
